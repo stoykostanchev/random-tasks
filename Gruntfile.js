@@ -1,24 +1,24 @@
 module.exports = function(grunt) {
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.initConfig({
-    karma: {
-      unit: {
-        plugins: [
-          'karma-jasmine',
-          'karma-spec-reporter',
-          'karma-phantomjs-launcher'
-        ],
-        browsers: ['PhantomJS'],
-        frameworks: ['jasmine'],
-        reporters: ['spec'],
-        logLevel: 'ERROR',
-        autoWatch: true,
-        files : {
-          src: ['test/**/*.spec.js']
-        }
+  var manifesto = require('./manifest');
+  var utils     = require('./grunt/task-utils');
+
+  require('load-grunt-config')(grunt, {
+    configPath : __dirname + '/grunt',
+    init : true,
+    data : {
+      manifest : manifesto,
+      utils: {
+        common : utils
+      },
+      settings : {
+        distFolder : 'dist'
       }
+    },
+    jitGrunt : true,
+    loadGruntTasks : {
+      pattern : ['grunt-*', '@*/grunt-*'],
+      config  : require('./package.json'),
+      scope   : 'devDependencies'
     }
   });
-
-  grunt.registerTask('default', ['karma:unit']);
 };

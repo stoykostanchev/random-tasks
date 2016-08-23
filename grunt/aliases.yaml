@@ -1,0 +1,24 @@
+# executed during deployment
+default:
+ - 'source'
+ - 'vendor'
+ - 'bundle'
+# for local developing
+develop:
+ - 'source'
+ - 'vendor'
+ - 'connect'
+ - 'watch'
+
+# partials used above
+source:
+  - 'html2js:source'
+  - 'concat:source'
+  - 'concat:sourceCss'
+  - 'copy:source'
+vendor:
+  - 'concat:vendor'
+bundle:
+  - 'concat:bundle'
+  - 'uglify:bundle'
+  - 'cssmin:bundle'

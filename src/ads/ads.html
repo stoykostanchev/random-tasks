@@ -1,0 +1,43 @@
+<div>
+  <div class='suggestions'>
+    <div class='suggestions__search'>
+      <input placeholder='UENI' ng-model='searchText'>
+    </div>
+    <div class='suggestions__language'>
+      <h4> {{ langService.getTranslation('language_select_label')  }} </h4>
+      <select
+        ng-options='l.name for l in langService.languages'
+        ng-model='langService.lang'>
+        <option value=''>
+          {{langService.getTranslation('language_select_empty')}}
+        </option>
+      </select>
+    </div>
+    <div class='suggestions__body__wrapper'>
+      <div class='suggestions__body'>
+        <a
+          ng-repeat='item in filtered = (ctrl.model.data.buttons | filter:searchText)'
+          class='suggestion__item'
+          ng-href='{{item.link}}'
+          >
+          <img ng-src='{{item.image}}' alt='{{item.name}}'/>
+          <div class='suggestion__item__content'>
+            <h4> {{item['title_' + langService.getCurLang()]}} </h4>
+            <p> {{item['short_description_' + langService.getCurLang()]}} </p>
+          </div>
+        </a>
+        <div class='no-results' ng-if='filtered.length===0'>
+          <p>No results found</p>
+          <p>for</p>
+          <p class='search__query'> {{searchText}} <p/>
+          <p>Perhaps loosen up your search criteria?</p>
+        </div>
+      </div>
+    </div>
+    <div class='suggestion__actions'>
+      <button> Favourites </button>
+      <button> Sign In </button>
+    </div>
+  </div>
+  <img class ='spec' src='/dist/ads/assets/images/spec.png'/>
+</div>
